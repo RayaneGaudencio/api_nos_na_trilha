@@ -15,6 +15,7 @@ public class AuthService {
     @Autowired
     private AdminRepository adminRepository;
 
+
     public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroAdmin dados, UriComponentsBuilder uriBuilder) {
         var admin = new Admin(dados);
 
@@ -23,13 +24,16 @@ public class AuthService {
         var uri = uriBuilder.path("/admin/{id}").buildAndExpand(admin.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhamentoAdmin(admin));
     }
+
     public ResponseEntity login(@RequestBody @Valid DadosLoginAdmin dados) {
         var admin = adminRepository.findByEmail(dados.email());
         if (admin != null) {
             if (admin.getSenha().equals(dados.senha())) {
                 return ResponseEntity.ok().build();
             } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+                ErrorResponse errorResponse = new ErrorResponse("Senha incorreta.", HttpStatus.UNAUTHORIZED.value());
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(errorResponse);
             }
         } else {
             ErrorResponse errorResponse = new ErrorResponse("Não foi possível encontrar o usuário.", HttpStatus.NOT_FOUND.value());
