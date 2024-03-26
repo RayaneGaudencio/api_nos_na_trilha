@@ -1,6 +1,6 @@
 package com.api.nos_na_trilha.domain.admin;
 
-public record DadosDetalhamentoAdmin (
+public record DadosDetalhamentoAdmin(
 
         Long id,
         String nome,
