@@ -19,10 +19,12 @@ public class Admin {
     private Long id;
     private String nome;
     private String email;
+    private String numeroTelefone;
     private String senha;
     public Admin(DadosCadastroAdmin dados) {
         this.nome = dados.nome();
         this.email = dados.email();
+        this.numeroTelefone = dados.numeroTelefone();
         this.senha = dados.senha();
     }
 }

@@ -8,6 +8,7 @@ public record DadosCadastroAdmin (
         @NotBlank
         @Email
         String email,
+        String numeroTelefone,
         @NotBlank
         String senha
 ) {}
