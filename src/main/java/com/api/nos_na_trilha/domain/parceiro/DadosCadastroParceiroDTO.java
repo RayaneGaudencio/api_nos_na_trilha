@@ -15,7 +15,8 @@ public record DadosCadastroParceiroDTO(
         String numeroTelefone,
         String identificador,
         int porte,
-        Endereco endereco
+        Endereco endereco,
+        TipoAssinatura tipoAssinatura
 ) {
 
 }

@@ -24,6 +24,6 @@ public class ParceiroController {
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid ParceiroAssociations dadosComEndereco,
                                     UriComponentsBuilder uri) {
-        return authService.cadastrarEmpresa(dadosComEndereco.getParceiroDados(), dadosComEndereco.getDadosEnderecoDTO(), uri);
+        return authService.cadastrarEmpresa(dadosComEndereco.getParceiroDados(), dadosComEndereco.getDadosEndereco(), uri);
     }
 }

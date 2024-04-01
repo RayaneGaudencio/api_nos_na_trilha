@@ -26,6 +26,9 @@ public class Parceiro {
     private int porte;
     private String senha;
 
+    @Column(name = "id_assinatura")
+    private Long tipoAssinatura;
+
     @OneToOne(mappedBy = "parceiro", cascade = CascadeType.ALL)
     private Endereco endereco;
     public Parceiro(DadosCadastroParceiroDTO dados) {

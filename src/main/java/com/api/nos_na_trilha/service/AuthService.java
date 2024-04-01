@@ -52,10 +52,14 @@ public class AuthService {
     }
 
     public ResponseEntity cadastrarEmpresa(DadosCadastroParceiroDTO parceiroDados, DadosEnderecoDTO dadosEnderecoDTO, UriComponentsBuilder uriBuilder) {
-        var endereco = new Endereco(dadosEnderecoDTO);
+        var idAssinatura = ParceiroService.definirAssinatura(parceiroDados.tipoAssinatura());
         var parceiro = new Parceiro(parceiroDados);
+        parceiro.setTipoAssinatura(idAssinatura);
+
+        var endereco = new Endereco(dadosEnderecoDTO);
         parceiro.setEndereco(endereco);
         endereco.setParceiro(parceiro);
+
         System.out.println(parceiro.getEndereco());
         parceiroRepository.save(parceiro);
 

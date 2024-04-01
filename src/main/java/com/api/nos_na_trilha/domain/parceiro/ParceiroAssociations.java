@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 public class ParceiroAssociations {
     private DadosCadastroParceiroDTO parceiroDados;
-    private DadosEnderecoDTO dadosEnderecoDTO;
+    private DadosEnderecoDTO dadosEndereco;
 }
