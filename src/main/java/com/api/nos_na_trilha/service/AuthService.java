@@ -1,6 +1,12 @@
 package com.api.nos_na_trilha.service;
 
 import com.api.nos_na_trilha.domain.admin.*;
+import com.api.nos_na_trilha.domain.endereco.DadosEnderecoDTO;
+import com.api.nos_na_trilha.domain.endereco.Endereco;
+import com.api.nos_na_trilha.domain.parceiro.DadosCadastroParceiroDTO;
+import com.api.nos_na_trilha.domain.parceiro.DadosDetalhamentoParceiroDAO;
+import com.api.nos_na_trilha.domain.parceiro.Parceiro;
+import com.api.nos_na_trilha.domain.parceiro.ParceiroRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +21,8 @@ public class AuthService {
     @Autowired
     private AdminRepository adminRepository;
 
+    @Autowired
+    private ParceiroRepository parceiroRepository;
 
     public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroAdmin dados, UriComponentsBuilder uriBuilder) {
         var admin = new Admin(dados);
@@ -41,6 +49,18 @@ public class AuthService {
                     .status(HttpStatus.NOT_FOUND)
                     .body(errorResponse);
         }
+    }
+
+    public ResponseEntity cadastrarEmpresa(DadosCadastroParceiroDTO parceiroDados, DadosEnderecoDTO dadosEnderecoDTO, UriComponentsBuilder uriBuilder) {
+        var endereco = new Endereco(dadosEnderecoDTO);
+        var parceiro = new Parceiro(parceiroDados);
+        parceiro.setEndereco(endereco);
+        endereco.setParceiro(parceiro);
+        System.out.println(parceiro.getEndereco());
+        parceiroRepository.save(parceiro);
+
+        var uri = uriBuilder.path("/parceiro/{id}").buildAndExpand(parceiro.getId()).toUri();
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoParceiroDAO(parceiro));
     }
 }
 
