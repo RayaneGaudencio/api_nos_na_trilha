@@ -7,7 +7,8 @@ public record DadosDetalhamentoParceiroDAO(
     String identificador,
     String numeroTelefone,
     int porte,
-    Long tipoAssinatura
+    Long tipoAssinatura,
+    String senha
 ) {
     public DadosDetalhamentoParceiroDAO(Parceiro parceiro) {
         this(parceiro.getId(),
@@ -16,6 +17,7 @@ public record DadosDetalhamentoParceiroDAO(
                 parceiro.getIdentificador(),
                 parceiro.getNumeroTelefone(),
                 parceiro.getPorte(),
-                parceiro.getTipoAssinatura());
+                parceiro.getTipoAssinatura(),
+                parceiro.getSenha());
     }
 }
