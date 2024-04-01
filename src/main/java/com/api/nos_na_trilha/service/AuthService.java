@@ -54,6 +54,11 @@ public class AuthService {
     public ResponseEntity cadastrarEmpresa(DadosCadastroParceiroDTO parceiroDados, DadosEnderecoDTO dadosEnderecoDTO, UriComponentsBuilder uriBuilder) {
         var idAssinatura = ParceiroService.definirAssinatura(parceiroDados.tipoAssinatura());
         var parceiro = new Parceiro(parceiroDados);
+        if (parceiroRepository.existsByEmail(parceiro.getEmail())) {
+            ErrorResponse errorResponse = new ErrorResponse("Email já cadastrado.", HttpStatus.CONFLICT.value());
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(errorResponse);
+        }
         parceiro.setTipoAssinatura(idAssinatura);
 
         var endereco = new Endereco(dadosEnderecoDTO);
