@@ -26,6 +26,11 @@ public class AuthService {
 
     public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroAdmin dados, UriComponentsBuilder uriBuilder) {
         var admin = new Admin(dados);
+        if (adminRepository.existsByEmail(admin.getEmail())) {
+            ErrorResponse errorResponse = new ErrorResponse("Email já cadastrado.", HttpStatus.CONFLICT.value());
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(errorResponse);
+        }
 
         adminRepository.save(admin);
 
@@ -35,9 +40,11 @@ public class AuthService {
 
     public ResponseEntity login(@RequestBody @Valid DadosLoginAdmin dados) {
         var admin = adminRepository.findByEmail(dados.email());
+        var dadosAdmin = new DadosDetalhamentoAdmin(admin);
         if (admin != null) {
             if (admin.getSenha().equals(dados.senha())) {
-                return ResponseEntity.ok().build();
+                return ResponseEntity.ok()
+                        .body(dadosAdmin);
             } else {
                 ErrorResponse errorResponse = new ErrorResponse("Senha incorreta.", HttpStatus.UNAUTHORIZED.value());
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
