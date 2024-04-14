@@ -1,6 +1,7 @@
 package com.api.nos_na_trilha.controller;
 
 
+import com.api.nos_na_trilha.domain.admin.DadosLoginAdmin;
 import com.api.nos_na_trilha.domain.parceiro.*;
 import com.api.nos_na_trilha.service.AuthService;
 import jakarta.transaction.Transactional;
@@ -26,4 +27,10 @@ public class ParceiroController {
                                     UriComponentsBuilder uri) {
         return authService.cadastrarEmpresa(dadosComEndereco.getParceiroDados(), dadosComEndereco.getDadosEndereco(), uri);
     }
+
+    @PostMapping("/login")
+    public ResponseEntity login(@RequestBody @Valid DadosLoginParceiro dados) {
+        return authService.loginParceiro(dados);
+    }
+
 }

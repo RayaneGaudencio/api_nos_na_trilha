@@ -3,10 +3,7 @@ package com.api.nos_na_trilha.service;
 import com.api.nos_na_trilha.domain.admin.*;
 import com.api.nos_na_trilha.domain.endereco.DadosEnderecoDTO;
 import com.api.nos_na_trilha.domain.endereco.Endereco;
-import com.api.nos_na_trilha.domain.parceiro.DadosCadastroParceiroDTO;
-import com.api.nos_na_trilha.domain.parceiro.DadosDetalhamentoParceiroDAO;
-import com.api.nos_na_trilha.domain.parceiro.Parceiro;
-import com.api.nos_na_trilha.domain.parceiro.ParceiroRepository;
+import com.api.nos_na_trilha.domain.parceiro.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -70,6 +67,26 @@ public class AuthService {
 
         var uri = uriBuilder.path("/parceiro/{id}").buildAndExpand(parceiro.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhamentoParceiroDAO(parceiro));
+    }
+
+    public ResponseEntity loginParceiro(@RequestBody DadosLoginParceiro dados) {
+        var parceiro = parceiroRepository.findByEmail(dados.email());
+        ErrorResponse errorResponse = new ErrorResponse();
+
+        if (parceiro != null) {
+            if (parceiro.getSenha().equals(dados.senha())) {
+                return ResponseEntity.ok().build();
+            } else {
+                errorResponse = new ErrorResponse("Senha incorreta.", HttpStatus.UNAUTHORIZED.value());
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(errorResponse);
+            }
+        } else {
+            errorResponse = new ErrorResponse("Não foi possível encontrar o parceiro.", HttpStatus.NOT_FOUND.value());
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(errorResponse);
+        }
     }
 }
 
