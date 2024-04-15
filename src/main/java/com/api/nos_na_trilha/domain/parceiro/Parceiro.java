@@ -2,11 +2,14 @@ package com.api.nos_na_trilha.domain.parceiro;
 
 
 import com.api.nos_na_trilha.domain.endereco.Endereco;
+import com.api.nos_na_trilha.domain.roteiro.Roteiro;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,6 +34,7 @@ public class Parceiro {
 
     @OneToOne(mappedBy = "parceiro", cascade = CascadeType.ALL)
     private Endereco endereco;
+
     public Parceiro(DadosCadastroParceiroDTO dados) {
         this.nome = dados.nome();
         this.email = dados.email();
