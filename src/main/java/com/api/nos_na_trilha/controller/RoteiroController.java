@@ -2,16 +2,16 @@ package com.api.nos_na_trilha.controller;
 
 
 import com.api.nos_na_trilha.domain.roteiro.DadosCadastroRoteiro;
+import com.api.nos_na_trilha.domain.roteiro.Roteiro;
 import com.api.nos_na_trilha.service.RoteiroService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/roteiro")
@@ -25,5 +25,10 @@ public class RoteiroController {
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroRoteiro dados, UriComponentsBuilder uri) {
         return roteiroService.cadastrar(dados, uri);
+    }
+
+    @GetMapping("/pesquisa_roteiro")
+    public ResponseEntity<List<Roteiro>> buscarPorCidadeEstado(@RequestParam String cidade, @RequestParam String estado) {
+        return roteiroService.buscarPorCidadeEstado(cidade, estado);
     }
 }

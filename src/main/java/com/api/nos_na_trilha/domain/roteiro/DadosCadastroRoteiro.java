@@ -15,7 +15,7 @@ public record DadosCadastroRoteiro(
         String horarioSaida,
         @NotBlank
         String transporte,
-        CategoriaRoteiro categoria,
+        String categoria,
         String alojamento,
         String descricao,
         String requisitos,

@@ -24,7 +24,7 @@ public class Roteiro {
     private Date dataInicio;
     private String horarioSaida;
     private String transporte;
-    private CategoriaRoteiro categoria;
+    private String categoria;
     private String alojamento;
     private String descricao;
     private String requisitos;
