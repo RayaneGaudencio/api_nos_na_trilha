@@ -27,8 +27,13 @@ public class RoteiroController {
         return roteiroService.cadastrar(dados, uri);
     }
 
-    @GetMapping("/pesquisa_roteiro")
+    @GetMapping("/busca")
     public ResponseEntity<List<Roteiro>> buscarPorCidadeEstado(@RequestParam String cidade, @RequestParam String estado) {
         return roteiroService.buscarPorCidadeEstado(cidade, estado);
+    }
+
+    @GetMapping("/busca_por_categoria")
+    public ResponseEntity<List<Roteiro>> buscarPorCategoria(@RequestParam String categoria) {
+        return roteiroService.buscarPorCategoria(categoria);
     }
 }

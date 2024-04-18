@@ -8,4 +8,6 @@ import java.util.List;
 public interface RoteiroRepository extends JpaRepository<Roteiro, Long> {
     @Query("SELECT r FROM Roteiro r WHERE r.cidadeSaida = :cidade AND r.ufSaida = :uf")
     List<Roteiro> buscarPorCidadeEUf(String cidade, String uf);
+
+    List<Roteiro> findByCategoria(String categoria);
 }

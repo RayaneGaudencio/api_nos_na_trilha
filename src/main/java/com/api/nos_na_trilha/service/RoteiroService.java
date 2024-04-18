@@ -51,4 +51,14 @@ public class RoteiroService {
             return ResponseEntity.ok(roteiros);
         }
     }
+
+    public ResponseEntity<List<Roteiro>> buscarPorCategoria(String categoria) {
+        List<Roteiro> roteiros = roteiroRepository.findByCategoria(categoria);
+
+        if (roteiros.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(roteiros);
+        }
+    }
 }
