@@ -29,6 +29,8 @@ public class Roteiro {
     private String descricao;
     private String requisitos;
     private String atracoesAtv;
+    private String ufSaida;
+    private String cidadeSaida;
 
     private Long idParceiro;
 
@@ -45,5 +47,7 @@ public class Roteiro {
         this.descricao = dados.descricao();
         this.requisitos = dados.requisitos();
         this.atracoesAtv = dados.atracoesAtv();
+        this.cidadeSaida = dados.cidadeSaida();
+        this.ufSaida = dados.ufSaida();
     }
 }
