@@ -36,4 +36,9 @@ public class RoteiroController {
     public ResponseEntity<List<Roteiro>> buscarPorCategoria(@RequestParam String categoria) {
         return roteiroService.buscarPorCategoria(categoria);
     }
+
+    @GetMapping("/todos_roteiros")
+    public ResponseEntity<List<Roteiro>> todosRoteiros() {
+        return ResponseEntity.ok(roteiroService.listarTodosRoteiros());
+    }
 }

@@ -61,4 +61,8 @@ public class RoteiroService {
             return ResponseEntity.ok(roteiros);
         }
     }
+
+    public List<Roteiro> listarTodosRoteiros() {
+        return roteiroRepository.findAll();
+    }
 }
