@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/roteiro")
@@ -40,5 +41,15 @@ public class RoteiroController {
     @GetMapping("/todos_roteiros")
     public ResponseEntity<List<Roteiro>> todosRoteiros() {
         return ResponseEntity.ok(roteiroService.listarTodosRoteiros());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Roteiro> obterRoteiroPorId(@PathVariable Long id) {
+        Optional<Roteiro> roteiro = roteiroService.obterRoteiroPorId(id);
+        if (roteiro.isPresent()) {
+            return ResponseEntity.ok(roteiro.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
