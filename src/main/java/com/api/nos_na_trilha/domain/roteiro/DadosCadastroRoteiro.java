@@ -21,6 +21,7 @@ public record DadosCadastroRoteiro(
         String requisitos,
         String atracoesAtv,
         String ufSaida,
-        String cidadeSaida
+        String cidadeSaida,
+        String numeroContato
 ) {
 }

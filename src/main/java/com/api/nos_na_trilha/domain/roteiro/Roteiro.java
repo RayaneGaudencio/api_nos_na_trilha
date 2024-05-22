@@ -31,6 +31,7 @@ public class Roteiro {
     private String atracoesAtv;
     private String ufSaida;
     private String cidadeSaida;
+    private String numeroContato;
 
     private Long idParceiro;
 
@@ -49,5 +50,6 @@ public class Roteiro {
         this.atracoesAtv = dados.atracoesAtv();
         this.cidadeSaida = dados.cidadeSaida();
         this.ufSaida = dados.ufSaida();
+        this.numeroContato = dados.numeroContato();
     }
 }
